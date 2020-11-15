@@ -2,7 +2,7 @@
 <repositories version="1.0">
 <repo priority="50" status="unofficial">
 	<name>qix67</name>
-	<description>Qix67 profile and Packages</description>
+	<description>Qix67's gentoo overlay</description>
 	<homepage>none</homepage>
 	<owner>
 		<email>digital.or@gmail.com</email>
