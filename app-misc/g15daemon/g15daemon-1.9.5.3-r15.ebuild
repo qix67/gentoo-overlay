@@ -31,7 +31,7 @@ PATCHES=(
 	"${FILESDIR}/${P}-overflow-fix.patch"
 	"${FILESDIR}/${P}-docdir.patch"
 	"${FILESDIR}/${P}-avoid_bashisms.patch"
-	"${FILESDIR}/${P}-g15daemon-1.9.5.3-uinput.patch"
+	"${FILESDIR}/${P}-uinput.patch"
 )
 
 uinput_check() {
