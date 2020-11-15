@@ -1,0 +1,11 @@
+--- a/qcad-3.23.0.0/src/core/RPluginLoader.cpp	2019-11-03 09:21:22.053529644 +0100
++++ b/qcad-3.23.0.0/src/core/RPluginLoader.cpp	2019-11-03 09:23:00.715166141 +0100
+@@ -269,7 +269,7 @@
+ }
+ 
+ QString RPluginLoader::getPluginsPath() {
+-    QDir pluginsDir = QDir(".");
++    QDir pluginsDir = QDir("/usr/lib64/qcad");
+     if (!pluginsDir.cd("plugins")) {
+         pluginsDir.cdUp();
+         if (!pluginsDir.cd("PlugIns")) {
