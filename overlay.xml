@@ -8,7 +8,7 @@
 		<email>digital.or@gmail.com</email>
 		<name>Qix67</name>
 	</owner>
-	<source type="git">git://github.com/qix67/gentoo-overlay.git</source>
+	<source type="git">github.com/qix67/gentoo-overlay.git</source>
 	<feed>https://github.com/qix67/gentoo-overlay/commits/master.atom</feed>
 </repo>
 </repositories>
