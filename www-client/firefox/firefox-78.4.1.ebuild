@@ -53,6 +53,7 @@ PATCH_URIS=(
 
 PATCHES=(
 	"${FILESDIR}"/nomore_clickSelectsAll.patch
+	"${FILESDIR}"/session_restore_on_current_workspace.patch
 )
 
 SRC_URI="${MOZ_SRC_BASE_URI}/source/${MOZ_P}.source.tar.xz -> ${MOZ_P_DISTFILES}.source.tar.xz
