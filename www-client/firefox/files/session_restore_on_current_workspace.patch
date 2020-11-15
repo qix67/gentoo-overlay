@@ -1,0 +1,18 @@
+--- a/browser/components/sessionstore/SessionStore.jsm
++++ b/browser/components/sessionstore/SessionStore.jsm
+@@ -60,3 +60,3 @@
+ // XUL Window properties to (re)store
+ // Restored in restoreDimensions()
+-const WINDOW_ATTRIBUTES = ["width", "height", "screenX", "screenY", "sizemode"];
++const WINDOW_ATTRIBUTES = [];
+@@ -3865,4 +3865,3 @@
+     let workspaceID = aWindow.getWorkspaceID();
+     if (workspaceID) {
+-      winData.workspaceID = workspaceID;
+     }
+--- a/browser/components/sessionstore/test/browser_589246.js
++++ b/browser/components/sessionstore/test/browser_589246.js
+@@ -5,2 +5,2 @@
+ // Mirrors WINDOW_ATTRIBUTES IN SessionStore.jsm
+-const WINDOW_ATTRIBUTES = ["width", "height", "screenX", "screenY", "sizemode"];
++const WINDOW_ATTRIBUTES = [];
