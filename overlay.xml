@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories version="1.0">
+<repo priority="50" status="unofficial">
+	<name>qix67</name>
+	<description>Qix67 profile and Packages</description>
+	<homepage>none</homepage>
+	<owner>
+		<email>digital.or@gmail.com</email>
+		<name>Qix67</name>
+	</owner>
+	<!-- <source type="git">git@central-lan:git/gentoo-overlay.git</source> -->
+	<feed>https://github.com/qix67/gentoo-overlay/commits/master.atom</feed>
+</repo>
+</repositories>

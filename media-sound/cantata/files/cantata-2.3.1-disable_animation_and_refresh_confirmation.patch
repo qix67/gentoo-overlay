@@ -1,0 +1,86 @@
+diff -ru a/gui/mainwindow.cpp b/gui/mainwindow.cpp
+--- a/gui/mainwindow.cpp	2018-05-27 18:50:05.000000000 +0200
++++ b/gui/mainwindow.cpp	2018-06-29 09:38:31.600362502 +0200
+@@ -801,10 +801,17 @@
+     connect(MPDConnection::self(), SIGNAL(connectionNotChanged(QString)), SLOT(mpdConnectionName(QString)));
+     connect(MpdLibraryModel::self(), SIGNAL(error(QString)), SLOT(showError(QString)));
+     connect(ApiKeys::self(), SIGNAL(error(const QString &)), SLOT(showError(const QString &)));
++
++    // disable refreshDB confirmation
++    connect(refreshDbAction, SIGNAL(triggered()), MpdLibraryModel::self(), SLOT(clearDb()));
++    connect(refreshDbAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(update()));
++
++#if 0
+     connect(refreshDbAction, SIGNAL(triggered()), this, SLOT(refreshDbPromp()));
+     connect(doDbRefreshAction, SIGNAL(triggered()), MpdLibraryModel::self(), SLOT(clearDb()));
+     connect(doDbRefreshAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(update()));
+     connect(doDbRefreshAction, SIGNAL(triggered()), messageWidget, SLOT(animatedHide()));
++#endif
+     connect(connectAction, SIGNAL(triggered()), this, SLOT(connectToMpd()));
+     connect(StdActions::self()->prevTrackAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(goToPrevious()));
+     connect(StdActions::self()->nextTrackAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(goToNext()));
+@@ -1184,6 +1191,7 @@
+     #endif
+ }
+ 
++#if 0
+ void MainWindow::refreshDbPromp()
+ {
+     int btnLayout=style()->styleHint(QStyle::SH_DialogButtonLayout);
+@@ -1195,6 +1203,7 @@
+     messageWidget->setWarning(tr("Refresh MPD Database?"), false);
+     expand();
+ }
++#endif
+ 
+ void MainWindow::showAboutDialog()
+ {
+diff -ru a/gui/mainwindow.h b/gui/mainwindow.h
+--- a/gui/mainwindow.h	2018-05-27 18:50:15.000000000 +0200
++++ b/gui/mainwindow.h	2018-06-29 09:37:03.480361551 +0200
+@@ -167,7 +167,10 @@
+     void connectToMpd();
+     void connectToMpd(const MPDConnectionDetails &details);
+     void streamUrl(const QString &u);
++    // eripre2408
++#if 0
+     void refreshDbPromp();
++#endif
+     void showServerInfo();
+     void stopPlayback();
+     void stopAfterCurrentTrack();
+diff -ru a/support/kmessagewidget.cpp b/support/kmessagewidget.cpp
+--- a/support/kmessagewidget.cpp	2018-03-07 20:04:41.000000000 +0100
++++ b/support/kmessagewidget.cpp	2018-06-29 09:37:03.480361551 +0200
+@@ -40,7 +40,10 @@
+ 
+     q->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+ 
+-    timeLine = new QTimeLine(500, q);
++    //timeLine = new QTimeLine(500, q);
++    // eripre2408 (disable animation);
++    timeLine = new QTimeLine(1, q);
++
+     QObject::connect(timeLine, SIGNAL(valueChanged(qreal)), q, SLOT(slotTimeLineChanged(qreal)));
+     QObject::connect(timeLine, SIGNAL(finished()), q, SLOT(slotTimeLineFinished()));
+ 
+@@ -334,6 +337,9 @@
+ 
+ void KMsgWidget::animatedShow()
+ {
++    // eripre2408 if not enough inside constructor
++    // timeLine->setDuration(1);
++
+     if (isVisible()) {
+         return;
+     }
+@@ -353,6 +359,9 @@
+ 
+ void KMsgWidget::animatedHide()
+ {
++    // eripre2408 if not enough inside constructor
++    // timeLine->setDuration(1);
++
+     if (!isVisible()) {
+         return;
+     }

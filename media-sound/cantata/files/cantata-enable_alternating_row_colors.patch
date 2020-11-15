@@ -1,0 +1,135 @@
+diff -ur cantata-2.4.1.org/context/togglelist.cpp cantata-2.4.1/context/togglelist.cpp
+--- cantata-2.4.1.org/context/togglelist.cpp	2020-01-25 11:28:47.000000000 +0100
++++ cantata-2.4.1/context/togglelist.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -47,9 +47,9 @@
+     downButton->setEnabled(false);
+     addButton->setEnabled(false);
+     removeButton->setEnabled(false);
+-    available->setAlternatingRowColors(false);
++    available->setAlternatingRowColors(true);
+     available->setItemDelegate(new BasicItemDelegate(available));
+-    selected->setAlternatingRowColors(false);
++    selected->setAlternatingRowColors(true);
+     selected->setItemDelegate(new BasicItemDelegate(selected));
+ }
+ 
+diff -ur cantata-2.4.1.org/gui/cachesettings.cpp cantata-2.4.1/gui/cachesettings.cpp
+--- cantata-2.4.1.org/gui/cachesettings.cpp	2020-01-25 11:28:47.000000000 +0100
++++ cantata-2.4.1/gui/cachesettings.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -201,7 +201,7 @@
+     setResizeMode(header(), 1, QHeaderView::Stretch);
+     setResizeMode(header(), 2, QHeaderView::Stretch);
+     header()->setStretchLastSection(true);
+-    setAlternatingRowColors(false);
++    setAlternatingRowColors(true);
+     setItemDelegate(new BasicItemDelegate(this));
+ }
+ 
+diff -ur cantata-2.4.1.org/gui/customactionssettings.cpp cantata-2.4.1/gui/customactionssettings.cpp
+--- cantata-2.4.1.org/gui/customactionssettings.cpp	2020-01-25 11:28:47.000000000 +0100
++++ cantata-2.4.1/gui/customactionssettings.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -114,7 +114,7 @@
+     tree->setSortingEnabled(true);
+     setResizeMode(tree->header(), 0, QHeaderView::ResizeToContents);
+     tree->header()->setStretchLastSection(true);
+-    tree->setAlternatingRowColors(false);
++    tree->setAlternatingRowColors(true);
+     tree->setItemDelegate(new BasicItemDelegate(this));
+     connect(tree, SIGNAL(itemSelectionChanged()), this, SLOT(controlButtons()));
+     connect(add, SIGNAL(clicked()), SLOT(addCommand()));
+diff -ur cantata-2.4.1.org/gui/shortcutssettingspage.cpp cantata-2.4.1/gui/shortcutssettingspage.cpp
+--- cantata-2.4.1.org/gui/shortcutssettingspage.cpp	2020-01-25 11:28:47.000000000 +0100
++++ cantata-2.4.1/gui/shortcutssettingspage.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -47,7 +47,7 @@
+     QHash<QString, ActionCollection *> map;
+     map.insert("Cantata", ActionCollection::get());
+     shortcuts = new ShortcutsSettingsWidget(map, this);
+-    shortcuts->view()->setAlternatingRowColors(false);
++    shortcuts->view()->setAlternatingRowColors(true);
+     shortcuts->view()->setItemDelegate(new BasicItemDelegate(shortcuts->view()));
+     lay->addWidget(shortcuts);
+ }
+diff -ur cantata-2.4.1.org/playlists/playlistrulesdialog.cpp cantata-2.4.1/playlists/playlistrulesdialog.cpp
+--- cantata-2.4.1.org/playlists/playlistrulesdialog.cpp	2020-02-16 10:20:07.000000000 +0100
++++ cantata-2.4.1/playlists/playlistrulesdialog.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -178,7 +178,7 @@
+     proxy->setSourceModel(model);
+     rulesList->setModel(proxy);
+     rulesList->setItemDelegate(new BasicItemDelegate(rulesList));
+-    rulesList->setAlternatingRowColors(false);
++    rulesList->setAlternatingRowColors(true);
+ 
+     minDuration->setSpecialValueText(tr("No Limit"));
+     maxDuration->setSpecialValueText(tr("No Limit"));
+diff -ur cantata-2.4.1.org/replaygain/rgdialog.cpp cantata-2.4.1/replaygain/rgdialog.cpp
+--- cantata-2.4.1.org/replaygain/rgdialog.cpp	2020-02-16 10:25:44.000000000 +0100
++++ cantata-2.4.1/replaygain/rgdialog.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -94,7 +94,7 @@
+     view->setRootIsDecorated(false);
+     view->setAllColumnsShowFocus(true);
+     view->setItemDelegate(new BasicItemDelegate(view));
+-    view->setAlternatingRowColors(false);
++    view->setAlternatingRowColors(true);
+     view->setContextMenuPolicy(Qt::ActionsContextMenu);
+     view->setSelectionMode(QAbstractItemView::ExtendedSelection);
+     removeAct=new Action(tr("Remove From List"), view);
+diff -ur cantata-2.4.1.org/tags/trackorganiser.cpp cantata-2.4.1/tags/trackorganiser.cpp
+--- cantata-2.4.1.org/tags/trackorganiser.cpp	2020-02-16 10:08:50.000000000 +0100
++++ cantata-2.4.1/tags/trackorganiser.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -75,7 +75,7 @@
+     connect(this, SIGNAL(update()), MPDConnection::self(), SLOT(updateMaybe()));
+     progress->setVisible(false);
+     files->setItemDelegate(new BasicItemDelegate(files));
+-    files->setAlternatingRowColors(false);
++    files->setAlternatingRowColors(true);
+     files->setContextMenuPolicy(Qt::ActionsContextMenu);
+     files->setSelectionMode(QAbstractItemView::ExtendedSelection);
+     removeAct=new Action(tr("Remove From List"), files);
+diff -ur cantata-2.4.1.org/widgets/categorizedview.cpp cantata-2.4.1/widgets/categorizedview.cpp
+--- cantata-2.4.1.org/widgets/categorizedview.cpp	2020-02-16 10:08:58.000000000 +0100
++++ cantata-2.4.1/widgets/categorizedview.cpp	2020-06-05 12:23:29.872475734 +0200
+@@ -101,7 +101,7 @@
+     setContextMenuPolicy(Qt::NoContextMenu);
+     setDragDropMode(QAbstractItemView::DragOnly);
+     setSelectionMode(QAbstractItemView::ExtendedSelection);
+-    setAlternatingRowColors(false);
++    setAlternatingRowColors(true);
+     setUniformItemSizes(true);
+     setAttribute(Qt::WA_MouseTracking);
+     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+diff -ur cantata-2.4.1.org/widgets/itemview.cpp cantata-2.4.1/widgets/itemview.cpp
+--- cantata-2.4.1.org/widgets/itemview.cpp	2020-02-16 14:26:33.000000000 +0100
++++ cantata-2.4.1/widgets/itemview.cpp	2020-06-05 12:23:29.875809010 +0200
+@@ -1141,7 +1141,7 @@
+                 listView->setGridSize(zoomedSize(listView, iconGridSize));
+                 listView->setViewMode(QListView::IconMode);
+                 listView->setResizeMode(QListView::Adjust);
+-//                listView->setAlternatingRowColors(false);
++//                listView->setAlternatingRowColors(true);
+                 listView->setWordWrap(true);
+                 listView->setDragDropMode(QAbstractItemView::DragOnly);
+                 static_cast<ActionItemDelegate *>(listView->itemDelegate())->setLargeIcons(true);
+diff -ur cantata-2.4.1.org/widgets/listview.cpp cantata-2.4.1/widgets/listview.cpp
+--- cantata-2.4.1.org/widgets/listview.cpp	2020-02-16 10:09:19.000000000 +0100
++++ cantata-2.4.1/widgets/listview.cpp	2020-06-05 12:23:29.875809010 +0200
+@@ -46,7 +46,7 @@
+     setContextMenuPolicy(Qt::NoContextMenu);
+     setDragDropMode(QAbstractItemView::DragOnly);
+     setSelectionMode(QAbstractItemView::ExtendedSelection);
+-    setAlternatingRowColors(false);
++    setAlternatingRowColors(true);
+     setUniformItemSizes(true);
+     setAttribute(Qt::WA_MouseTracking);
+     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+diff -ur cantata-2.4.1.org/widgets/treeview.cpp cantata-2.4.1/widgets/treeview.cpp
+--- cantata-2.4.1.org/widgets/treeview.cpp	2020-02-16 14:10:32.000000000 +0100
++++ cantata-2.4.1/widgets/treeview.cpp	2020-06-05 12:20:21.992382266 +0200
+@@ -93,7 +93,7 @@
+     setContextMenuPolicy(Qt::NoContextMenu);
+ //     setRootIsDecorated(false);
+     setAllColumnsShowFocus(true);
+-    setAlternatingRowColors(false);
++    setAlternatingRowColors(true);
+     setSelectionMode(QAbstractItemView::ExtendedSelection);
+     setSelectionBehavior(QAbstractItemView::SelectRows);
+     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
