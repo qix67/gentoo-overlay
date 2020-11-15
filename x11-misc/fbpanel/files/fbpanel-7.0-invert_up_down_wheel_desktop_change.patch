@@ -1,0 +1,12 @@
+diff -ur fbpanel-7.0.org/panel/panel.c fbpanel-7.0/panel/panel.c
+--- fbpanel-7.0.org/panel/panel.c	2015-12-05 07:34:19.000000000 +0100
++++ fbpanel-7.0/panel/panel.c	2020-04-22 08:13:07.873703269 +0200
+@@ -532,7 +532,7 @@
+     ENTER;
+     DBG("scroll direction = %d\n", event->direction);
+     i = p->curdesk;
+-    if (event->direction == GDK_SCROLL_UP || event->direction == GDK_SCROLL_LEFT) {
++    if (event->direction == GDK_SCROLL_DOWN || event->direction == GDK_SCROLL_LEFT) {
+         i--;
+         if (i < 0)
+             i = p->desknum - 1;
