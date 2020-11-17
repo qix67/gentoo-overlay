@@ -43,4 +43,6 @@ Packages provides by this overlay
 
 * www-client/firefox: disable urlbar "Click Selects All" feature, session is restored on current workspace instead of workspace where firefox were closed
 
+* x11-libs/gtk+: gtk3 with all gtk3-mushrooms patches.
+
 * x11-misc/fbpanel: inverse direction of wheel desktop change
