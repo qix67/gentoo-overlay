@@ -46,3 +46,6 @@ Packages provides by this overlay
 * x11-libs/gtk+: gtk3 with all gtk3-mushrooms patches.
 
 * x11-misc/fbpanel: inverse direction of wheel desktop change
+
+* x11-themes/adwaita-icon-theme: same as original gentoo packages but without adwaita cursors.
+
