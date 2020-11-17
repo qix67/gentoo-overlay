@@ -21,7 +21,7 @@ echo "media-sound/cantata::gentoo" >> /etc/portage/package.mask
 emerge -1 media-sound/cantata
 ```
 
-Packages provides by this overlay
+Packages provided by this overlay
 ---------------------------------
 
 * app-misc/g15daemon : include uinput patch
