@@ -47,5 +47,5 @@ Packages provided by this overlay
 
 * x11-misc/fbpanel: inverse direction of wheel desktop change
 
-* x11-themes/adwaita-icon-theme: same as original gentoo packages but without adwaita cursors.
+* x11-themes/adwaita-icon-theme: same as original gentoo package but without adwaita cursors.
 
