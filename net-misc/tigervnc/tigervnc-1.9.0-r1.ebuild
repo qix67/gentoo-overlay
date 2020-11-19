@@ -78,6 +78,7 @@ DEPEND="${CDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${P}-030_manpages.patch
 	"${FILESDIR}"/${P}-055_xstartup.patch
+	"${FILESDIR}"/no_context_menu_overlay.patch
 )
 
 src_prepare() {
