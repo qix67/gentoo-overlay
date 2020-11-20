@@ -28,6 +28,8 @@ Packages provided by this overlay
 
 * dev-db/pgadmin3-abdulyadi: AbdulYadi's pgadmin3 fork (support recent PostgreSQL versions)
 
+* dev-embedded/teensyduino-bin: teensyduino binary package
+
 * media-gfx/qcad: open source 2D CAD software
 
 * media-sound/cantata: disable animation, disable mpd database refresh confirmation, enable alternate row colors on several lists
