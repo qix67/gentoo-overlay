@@ -31,7 +31,7 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}"
 
-RESTRICT="binchecks preserve-libs strip"
+RESTRICT="binchecks preserve-libs strip mirror"
 
 src_unpack() {
 	# unpack arduino in workdir

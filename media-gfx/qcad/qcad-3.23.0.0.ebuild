@@ -41,6 +41,8 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+RESTRICT="mirror"
+
 src_prepare() {
 	#eapply -p2 "${FILESDIR}/fix_plugin_path.patch"
 	eapply_user
