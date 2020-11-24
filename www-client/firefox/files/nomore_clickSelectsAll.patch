@@ -24,3 +24,15 @@ diff -r 078326f48100 browser/components/urlbar/UrlbarInput.jsm
          } else {
            this.view.autoOpen({ event });
          }
+diff -r 078326f48100 browser/components/search/content/searchbar.js
+--- a/browser/components/search/content/searchbar.js	2020-11-24 08:47:17.602892785 +0100
++++ b/browser/components/search/content/searchbar.js	2020-11-24 09:31:37.641685088 +0100
+@@ -545,7 +545,7 @@
+       );
+ 
+       this.addEventListener("mousedown", event => {
+-        this._preventClickSelectsAll = this._textbox.focused;
++        this._preventClickSelectsAll = true;
+         // Ignore right clicks
+         if (event.button != 0) {
+           return;

@@ -43,7 +43,7 @@ Packages provided by this overlay
 
 * sys-boot/uefitool: version 56_alpha
 
-* www-client/firefox: disable urlbar "Click Selects All" feature, session is restored on current workspace instead of workspace where firefox were closed
+* www-client/firefox: disable urlbar/searchbar "Click Selects All" feature, session is restored on current workspace instead of workspace where firefox were closed
 
 * x11-libs/gtk+: gtk3 with all gtk3-mushrooms patches.
 
