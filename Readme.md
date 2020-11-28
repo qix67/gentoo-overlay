@@ -43,9 +43,9 @@ Packages provided by this overlay
 
 * sys-boot/uefitool: version 56_alpha
 
-* www-client/firefox: disable urlbar/searchbar "Click Selects All" feature, session is restored on current workspace instead of workspace where firefox were closed
+* www-client/firefox: disable urlbar/searchbar "Click Selects All" feature, session is restored on current workspace instead of workspace where firefox were closed. Add USE flag "fake-buildid" to disable firefox 'restart required' after upgrade.
 
-* x11-libs/gtk+: gtk3 with all gtk3-mushrooms patches.
+* x11-libs/gtk+: gtk3 with all gtk3-mushrooms patches and gtktreeview alternate row colorization (treeview row.odd/treeview row.even)
 
 * x11-misc/fbpanel: inverse direction of wheel desktop change
 
