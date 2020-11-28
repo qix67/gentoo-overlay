@@ -40,7 +40,9 @@ PATCHES=(
 	"${FILESDIR}"/popovers__color-chooser.patch
 	"${FILESDIR}"/popovers__file-chooser-list.patch
 	"${FILESDIR}"/popovers__places-sidebar.patch
+	"${FILESDIR}"/0001-Add-even-odd-row-css-nodes-for-tree-view.patch
 )
+
 # Upstream wants us to do their job:
 # https://bugzilla.gnome.org/show_bug.cgi?id=768662#c1
 RESTRICT="test"

@@ -1,0 +1,140 @@
+From f71d136a0825b5d6ef9b088958de88ffee8d087b Mon Sep 17 00:00:00 2001
+From: Sam Parkinson <sam@sam.today>
+Date: Sun, 1 May 2016 18:07:15 +1000
+Subject: [PATCH] Add even/odd row css nodes for tree view
+
+With css regions, it was possible to stripe the treeview rows with
+different background colors.  While this is not a design goal for
+GNOME, some downstreams (like Sugar) saw this as a regression.
+
+This commit does the laziest possible fix; simply having a "even"
+and "odd" css node, that can be addressed by "row.even" and
+"row.odd" via the css.
+
+Example in gtk.css:
+treeview row.odd{
+   background-color: #FFFFFF;
+}
+
+treeview row.even{
+   background-color: #EEEEEE;
+}
+
+https://bugzilla.gnome.org/show_bug.cgi?id=757495
+---
+ gtk/gtktreeview.c | 35 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 32 insertions(+), 3 deletions(-)
+
+diff --git a/gtk/gtktreeview.c b/gtk/gtktreeview.c
+index a1a76f9..c2bce17 100644
+--- a/gtk/gtktreeview.c
++++ b/gtk/gtktreeview.c
+@@ -53,8 +53,8 @@
+ #include "gtktypebuiltins.h"
+ #include "gtkmain.h"
+ #include "gtksettingsprivate.h"
+-#include "gtkwidgetpath.h"
+ #include "gtkpixelcacheprivate.h"
++#include "gtkwidgetpath.h"
+ #include "a11y/gtktreeviewaccessibleprivate.h"
+ 
+ 
+@@ -134,12 +134,18 @@
+  * ┊   ┊
+  * │   ╰── <column header>
+  * │
++ * ├── row.even
++ * ├── row.odd
++ * │
+  * ╰── [rubberband]
+  * ]|
+  *
+  * GtkTreeView has a main CSS node with name treeview and style class .view.
+  * It has a subnode with name header, which is the parent for all the column
+  * header widgets' CSS nodes.
++ * For styling rows, there are the row.even and row.odd nodes.  Note that
++ * there is not a node for every row, only a node for the even/odd style.
++ * The row nodes also do not support to box sizing properties (eg. margin).
+  * For rubberband selection, a subnode with name rubberband is used.
+  */
+ 
+@@ -314,6 +320,8 @@ struct _GtkTreeViewPrivate
+ 
+   /* CSS nodes */
+   GtkCssNode *header_node;
++  GtkCssNode *even_node;
++  GtkCssNode *odd_node;
+ 
+   /* Scroll position state keeping */
+   GtkTreeRowReference *top_row;
+@@ -1851,6 +1859,18 @@ gtk_tree_view_init (GtkTreeView *tree_view)
+   gtk_css_node_set_state (priv->header_node, gtk_css_node_get_state (widget_node));
+   g_object_unref (priv->header_node);
+ 
++  priv->even_node = gtk_css_node_new ();
++  gtk_css_node_set_name (priv->even_node, I_("row"));
++  gtk_css_node_insert_after (widget_node, priv->even_node, priv->header_node);
++  gtk_css_node_add_class (priv->even_node, g_quark_from_static_string ("even"));
++  gtk_css_node_set_state (priv->even_node, gtk_css_node_get_state (widget_node));
++
++  priv->odd_node = gtk_css_node_new ();
++  gtk_css_node_set_name (priv->odd_node, I_("row"));
++  gtk_css_node_insert_after (widget_node, priv->odd_node, priv->even_node);
++  gtk_css_node_add_class (priv->odd_node, g_quark_from_static_string ("odd"));
++  gtk_css_node_set_state (priv->odd_node, gtk_css_node_get_state (widget_node));
++
+   priv->multipress_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (tree_view));
+   gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (priv->multipress_gesture), 0);
+   g_signal_connect (priv->multipress_gesture, "pressed",
+@@ -4961,6 +4981,7 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
+   gint y_offset, cell_offset;
+   gint max_height;
+   gint depth;
++  gint index_no_depth = 0;
+   GdkRectangle background_area;
+   GdkRectangle cell_area;
+   GdkRectangle clip;
+@@ -5078,7 +5099,8 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
+    * order, drawing each successive node.
+    */
+   
+-  parity = !(_gtk_rbtree_node_get_index (tree, node) % 2);
++  index_no_depth = _gtk_rbtree_node_get_index (tree, node);
++  parity = !(index_no_depth % 2);
+ 
+   do
+     {
+@@ -5086,6 +5108,7 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
+       gint n_col = 0;
+ 
+       parity = !parity;
++      index_no_depth++;
+       is_separator = row_is_separator (tree_view, &iter, NULL);
+ 
+       max_height = gtk_tree_view_get_row_height (tree_view, node);
+@@ -5208,8 +5231,13 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
+ 						   GTK_RBNODE_FLAG_SET (node, GTK_RBNODE_IS_PARENT),
+ 						   node->children?TRUE:FALSE);
+ 
+-          gtk_style_context_save (context);
++          if (index_no_depth % 2) {
++            gtk_style_context_save_to_node (context, tree_view->priv->odd_node);
++          } else {
++            gtk_style_context_save_to_node (context, tree_view->priv->even_node);
++          }
+ 
++          gtk_style_context_save (context);
+           state = gtk_cell_renderer_get_state (NULL, widget, flags);
+           gtk_style_context_set_state (context, state);
+ 
+@@ -5397,6 +5425,7 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
+ 	    }
+ 
+           gtk_style_context_restore (context);
++          gtk_style_context_restore (context);
+ 	  cell_offset += gtk_tree_view_column_get_width (column);
+ 	}
+ 
+-- 
+2.8.1
+
