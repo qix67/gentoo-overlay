@@ -37,6 +37,8 @@ Packages provided by this overlay
 * net-misc/socat: add VSOCK support
 * net-misc/tigervnc: remove overlay message "Press ... to open the context menu"
 
+* net-print/hplip: add USE flag 'zeroconf' to compile with or without avahi
+
 * net-p2p/qbittorrent: include fix for issue #11908 (reverse proxy)
 
 * sci-electronics/kicad: use wxgtk3.0-gtk2 instead of wxgtk3.0-gtk3
