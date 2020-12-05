@@ -26,6 +26,8 @@ Packages provided by this overlay
 
 * app-misc/g15daemon : include uinput patch
 
+* app-office/libreoffice : add USE flag 'qt5' to compile with qt5 but without kde
+
 * dev-db/pgadmin3-abdulyadi: AbdulYadi's pgadmin3 fork (support recent PostgreSQL versions)
 
 * dev-embedded/teensyduino-bin: teensyduino binary package
