@@ -76,5 +76,27 @@ src_configure() {
 	fi
 
 	eqmake5 "${myqmakeargs[@]}" QxOrm.pro
+
+	sed -i \
+			-e 's#-l /usr/lib64/libQt5Gui.so#-lQt5Gui -l#' \
+			-e 's#-l /usr/lib64/libQt5Network.so#-lQt5Network -l#' \
+			-e 's#-l /usr/lib64/libQt5Sql.so#-lQt5Sql -l#' \
+			-e 's#-l /usr/lib64/libQt5Core.so#-lQt5Core#'\
+			"${WORKDIR}"/qxorm-"${PV}"/Makefile.Debug
+
+	sed -i \
+			-e 's#-l /usr/lib64/libQt5Gui.so#-lQt5Gui -l#' \
+			-e 's#-l /usr/lib64/libQt5Network.so#-lQt5Network -l#' \
+			-e 's#-l /usr/lib64/libQt5Sql.so#-lQt5Sql -l#' \
+			-e 's#-l /usr/lib64/libQt5Core.so#-lQt5Core#'\
+			"${WORKDIR}"/qxorm-"${PV}"/Makefile.Release
 }
 
+src_install() {
+	dolib.so lib/*
+
+	doheader -r include/*
+
+	insinto  /usr/include/inl
+	doins -r inl/*
+}
