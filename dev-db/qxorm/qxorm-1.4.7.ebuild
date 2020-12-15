@@ -15,6 +15,7 @@ KEYWORDS="~amd64"
 IUSE="+boost qtgui qtnetwork -mongodb"
 
 DEPEND="
+	virtual/pkgconfig
 	>=dev-qt/qtcore-5.8
 	>=dev-qt/qtsql-5.8
 	boost? (
@@ -68,8 +69,8 @@ src_configure() {
 							'QX_MONGOC_LIB_PATH=/usr/lib64/'
 						)
 
-		local mongoc_version = $(pkg-config --list-all | sed -e '/^libmongoc-[0-9]/!d' -e 's/^libmongoc-\([^ ]*\) .*/\1/')
-		local bson_version = $(pkg-config --list-all | sed -e '/^libbson-[0-9]/!d' -e 's/^libbson-\([^ ]*\) .*/\1/')
+		local mongoc_version=$(pkg-config --list-all | sed -e '/^libmongoc-[0-9]/!d' -e 's/^libmongoc-\([^ ]*\) .*/\1/')
+		local bson_version=$(pkg-config --list-all | sed -e '/^libbson-[0-9]/!d' -e 's/^libbson-\([^ ]*\) .*/\1/')
 
 		myqmakeargs+=( "QX_BSON_INCLUDE_PATH=/usr/include/libbson-${bson_version}" 
 							"QX_MONGOC_INCLUDE_PATH=/usr/include/libmongoc-${mongoc_version}" )
