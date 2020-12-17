@@ -24,6 +24,8 @@ emerge -1 media-sound/cantata
 Packages provided by this overlay
 ---------------------------------
 
+* app-emulation/libvirt : modify USE flag 'virt-network' not to depend on all routing/bridge/firewall tools. Add USE flag 'virt-network-filter' which works like original 'virt-network' USE flag
+
 * app-misc/g15daemon : include uinput patch
 
 * app-office/libreoffice : add USE flag 'qt5' to compile with qt5 but without kde
