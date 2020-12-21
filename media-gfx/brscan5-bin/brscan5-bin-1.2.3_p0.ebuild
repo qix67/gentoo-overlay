@@ -11,7 +11,7 @@ DESCRIPTION="SANE driver for Brother DS-series scanners (brscan5)"
 HOMEPAGE="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html"
 SRC_URI="https://download.brother.com/welcome/dlf105160/${PN/-bin}-${MY_PV}.x86_64.rpm"
 
-RESTRICT="mirror"
+RESTRICT="strip mirror"
 QA_PREBUILT=".*"
 
 LICENSE="Brother-EULA"
