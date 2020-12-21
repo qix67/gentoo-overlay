@@ -53,6 +53,10 @@ src_install() {
 	insopts -m0755
 	doins opt/brother/scanner/brscan5/libsane-brother5.so*
 
+	insinto /etc/sane.d/dll.d
+	insopts -m0644
+	doins "${FILESDIR}/brother5.conf"
+
 	# path is hard-coded in libsane-brother5 library
 	insinto /etc/opt/brother/scanner/brscan5
 	insopts -m0644
@@ -74,7 +78,3 @@ src_install() {
 	udev_dorules "opt/brother/scanner/brscan5/udev-rules/NN-brother-mfp-brscan5-1.0.2-2.rules"
 }
 
-pkg_postinst() {
-	ewarn "You need to manually add a new line containing 'brother5' to /etc/sane.d/dll.conf"
-	elog "You need to manually add a new line containing 'brother5' to /etc/sane.d/dll.conf"
-}
