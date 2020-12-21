@@ -6,4 +6,8 @@
 		<email>digital.or@gmail.com</email>
 	</maintainer>
 	<longdescription>SANE drivers from Brother for brscan5 compatible models</longdescription>
+	<use>
+		<flag name="brother-skey">
+			Enable brother scan-key tool 
+		</flag>
 </pkgmetadata>
