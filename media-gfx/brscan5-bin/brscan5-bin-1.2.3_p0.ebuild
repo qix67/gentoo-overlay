@@ -17,12 +17,11 @@ QA_PREBUILT=".*"
 LICENSE="Brother-EULA"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="-brother-skey"
+IUSE=""
 
 RDEPEND="
 	media-gfx/sane-backends
 	net-dns/avahi[dbus]
-	brother-skey? ( media-gfx/brscan-skey-bin )
 	"
 DEPEND="${RDEPEND}"
 

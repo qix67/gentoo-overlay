@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=6
+EAPI=7
 
-inherit eutils fdo-mime
+inherit eutils xdg-utils desktop
 
 DESCRIPTION="QCAD is a free, open source application for computer aided drafting (CAD) in two dimensions (2D)."
 HOMEPAGE="http://www.qcad.org/en/"
@@ -41,7 +41,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-RESTRICT="mirror"
+RESTRICT="strip mirror"
 
 src_prepare() {
 	#eapply -p2 "${FILESDIR}/fix_plugin_path.patch"
@@ -124,11 +124,11 @@ src_install() {
 }
 
 pkg_postinst(){
-	fdo-mime_desktop_database_update
-	fdo-mime_mime_database_update
+	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
-	fdo-mime_mime_database_update
+	xdg_desktop_database_update
+	xdg_mimeinfo_database_update
 }

@@ -34,6 +34,7 @@ Packages provided by this overlay
 
 * dev-embedded/teensyduino-bin: teensyduino binary package
 
+* media-gfx/brscan5-bin: SANE drivers from Brother for brscan5 compatible models
 * media-gfx/qcad: open source 2D CAD software
 
 * media-sound/cantata: disable animation, disable mpd database refresh confirmation, enable alternate row colors on several lists
