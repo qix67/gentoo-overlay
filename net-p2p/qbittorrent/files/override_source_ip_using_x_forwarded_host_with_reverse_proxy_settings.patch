@@ -9,10 +9,10 @@ diff -ur qBittorrent-release-4.2.2.org/src/base/http/connection.cpp qBittorrent-
  #include "irequesthandler.h"
  #include "requestparser.h"
  #include "responsegenerator.h"
-@@ -91,7 +92,7 @@
-             return;
+@@ -98,7 +98,7 @@
  
-         case RequestParser::ParseStatus::OK: {
+         case RequestParser::ParseStatus::OK:
+         {
 -                const Environment env {m_socket->localAddress(), m_socket->localPort(), m_socket->peerAddress(), m_socket->peerPort()};
 +                const Environment env {m_socket->localAddress(), m_socket->localPort(), resolvePeerAddress(result.request), m_socket->peerPort()};
  
@@ -237,9 +237,9 @@ diff -ur qBittorrent-release-4.2.2.org/src/gui/optionsdialog.ui qBittorrent-rele
 +              <property name="title">
 +               <string>Reverse Proxy Server</string>
 +              </property>
-+              <layout class="QVBoxLayout" name="verticalLayout_33">
++              <layout class="QVBoxLayout" name="verticalLayout_331">
 +               <item>
-+                <layout class="QHBoxLayout" name="horizontalLayout_13">
++                <layout class="QHBoxLayout" name="horizontalLayout_131">
 +                 <item>
 +                  <widget class="QLabel" name="lblReverseProxyAddress">
 +                   <property name="text">
