@@ -1,9 +1,11 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
-inherit autotools eutils multilib versionator wxwidgets
+WX_GTK_VER="3.0"
+
+inherit autotools eutils multilib wxwidgets git-r3 desktop
 
 DESCRIPTION="wxWidgets GUI for PostgreSQL"
 HOMEPAGE="https://www.pgadmin.org/"
@@ -11,7 +13,6 @@ HOMEPAGE="https://www.pgadmin.org/"
 #KEYWORDS="amd64 ppc x86 ~x86-fbsd"
 
 EGIT_REPO_URI="https://github.com/AbdulYadi/pgadmin3.git"
-inherit git-r3
 DOCS=(); SRC_URI=""
 
 LICENSE="POSTGRESQL"
@@ -23,7 +24,7 @@ REQUIRED_USE="
 "
 
 DEPEND="
-	x11-libs/wxGTK:3.0=[X]
+	x11-libs/wxGTK:${WX_GTK_VER}[X]
 	>=dev-db/postgresql-12:=
 	>=dev-libs/libxml2-2.9
 	>=dev-libs/libxslt-1.1"
@@ -42,8 +43,6 @@ src_prepare() {
 }
 
 src_configure() {
-	WX_GTK_VER="3.0"
-
 	setup-wxwidgets
 
 	econf --with-wx-version=${WX_GTK_VER} \
