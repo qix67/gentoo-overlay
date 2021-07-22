@@ -6,9 +6,8 @@ EAPI=7
 inherit desktop qmake-utils
 
 MY_PV="A${PV/_alpha/}"
-MY_PN="${PN}-${MY_PV}"
 
-DESCRIPTION="C++/Qt program for parsing, extracting and modifying UEFI firmware images"
+DESCRIPTION="C++/Qt program to parse, extract and modify UEFI firmware images (new engine)"
 HOMEPATH="https://github.com/LongSoft/UEFITool"
 SRC_URI="https://github.com/LongSoft/UEFITool/archive/${MY_PV}.tar.gz -> ${P}.tar.gz"
 
@@ -33,6 +32,13 @@ src_unpack() {
 	mv "UEFITool-${MY_PV}" "${P}"
 }
 
+src_prepare() {
+	eapply_user
+
+	echo "$S"
+	sed -e "s/^    make || exit 1/    make ${MAKEOPTS} || exit 1/" -i "${S}/unixbuild.sh" || die "sed failed"
+}
+
 UEFI_PROGS=( UEFIExtract UEFIFind UEFITool )
 
 src_configure() {
@@ -47,10 +53,11 @@ src_install() {
 	for prog in "${UEFI_PROGS[@]}"
 	do
 		cd "${prog}"
-		dobin "${prog}"
+		mv "${prog}" "${prog}_ne"
+		dobin "${prog}_ne"
 		cd "${S}"
 	done
 
-	make_desktop_entry "UEFITool -- %f" "UEFITool" "utilities-terminal" "System;Utility;FileTools"
+	make_desktop_entry "UEFITool_ne -- %f" "UEFITool (new engine)" "utilities-terminal" "System;Utility;FileTools"
 }
 
