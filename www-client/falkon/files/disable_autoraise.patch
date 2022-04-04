@@ -1,0 +1,569 @@
+diff -ur falkon-3.2.0.org/src/lib/3rdparty/qtsingleapplication/qtsingleapplication.cpp falkon-3.2.0/src/lib/3rdparty/qtsingleapplication/qtsingleapplication.cpp
+--- falkon-3.2.0.org/src/lib/3rdparty/qtsingleapplication/qtsingleapplication.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/3rdparty/qtsingleapplication/qtsingleapplication.cpp	2022-04-04 08:35:26.817813274 +0200
+@@ -333,8 +333,6 @@
+ {
+     if (actWin) {
+         actWin->setWindowState(actWin->windowState() & ~Qt::WindowMinimized);
+-        actWin->raise();
+-        actWin->activateWindow();
+     }
+ }
+ 
+diff -ur falkon-3.2.0.org/src/lib/adblock/adblockmanager.cpp falkon-3.2.0/src/lib/adblock/adblockmanager.cpp
+--- falkon-3.2.0.org/src/lib/adblock/adblockmanager.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/adblock/adblockmanager.cpp	2022-04-04 08:35:35.671183059 +0200
+@@ -444,8 +444,6 @@
+     }
+ 
+     m_adBlockDialog.data()->show();
+-    m_adBlockDialog.data()->raise();
+-    m_adBlockDialog.data()->activateWindow();
+ 
+     return m_adBlockDialog.data();
+ }
+diff -ur falkon-3.2.0.org/src/lib/app/browserwindow.cpp falkon-3.2.0/src/lib/app/browserwindow.cpp
+--- falkon-3.2.0.org/src/lib/app/browserwindow.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/app/browserwindow.cpp	2022-04-04 08:35:39.721199195 +0200
+@@ -330,8 +330,6 @@
+     mApp->plugins()->emitMainWindowCreated(this);
+     emit startingCompleted();
+ 
+-    raise();
+-    activateWindow();
+     updateStartupFocus();
+ }
+ 
+diff -ur falkon-3.2.0.org/src/lib/app/mainapplication.cpp falkon-3.2.0/src/lib/app/mainapplication.cpp
+--- falkon-3.2.0.org/src/lib/app/mainapplication.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/app/mainapplication.cpp	2022-04-04 08:35:44.967886771 +0200
+@@ -888,8 +888,6 @@
+     }
+ 
+     actWin->setWindowState(actWin->windowState() & ~Qt::WindowMinimized);
+-    actWin->raise();
+-    actWin->activateWindow();
+     actWin->setFocus();
+ 
+     BrowserWindow* win = qobject_cast<BrowserWindow*>(actWin);
+diff -ur falkon-3.2.0.org/src/lib/app/mainmenu.cpp falkon-3.2.0/src/lib/app/mainmenu.cpp
+--- falkon-3.2.0.org/src/lib/app/mainmenu.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/app/mainmenu.cpp	2022-04-04 08:37:22.184940868 +0200
+@@ -129,8 +129,6 @@
+         m_preferences = new Preferences(m_window);
+ 
+     m_preferences->show();
+-    m_preferences->raise();
+-    m_preferences->activateWindow();
+ }
+ 
+ void MainMenu::quitApplication()
+@@ -304,14 +302,12 @@
+ {
+     DownloadManager* m = mApp->downloadManager();
+     m->show();
+-    m->raise();
+ }
+ 
+ void MainMenu::showCookieManager()
+ {
+     CookieManager* m = new CookieManager(m_window);
+     m->show();
+-    m->raise();
+ }
+ 
+ void MainMenu::toggleWebInspector()
+diff -ur falkon-3.2.0.org/src/lib/autofill/autofillnotification.ui falkon-3.2.0/src/lib/autofill/autofillnotification.ui
+--- falkon-3.2.0.org/src/lib/autofill/autofillnotification.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/autofill/autofillnotification.ui	2022-04-04 08:37:30.441640437 +0200
+@@ -126,7 +126,7 @@
+       <string/>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/lib/bookmarks/bookmarkstoolbarbutton.cpp falkon-3.2.0/src/lib/bookmarks/bookmarkstoolbarbutton.cpp
+--- falkon-3.2.0.org/src/lib/bookmarks/bookmarkstoolbarbutton.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/bookmarks/bookmarkstoolbarbutton.cpp	2022-04-04 08:37:50.098385439 +0200
+@@ -353,7 +353,6 @@
+ 
+     // Draw button base (only under mouse, this is autoraise button)
+     if (isDown() || hitButton(mapFromGlobal(QCursor::pos()))) {
+-        option.state |= QStyle::State_AutoRaise | QStyle::State_Raised;
+         style()->drawPrimitive(QStyle::PE_PanelButtonTool, &option, &p, this);
+     }
+ 
+diff -ur falkon-3.2.0.org/src/lib/downloads/downloadmanager.cpp falkon-3.2.0/src/lib/downloads/downloadmanager.cpp
+--- falkon-3.2.0.org/src/lib/downloads/downloadmanager.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/downloads/downloadmanager.cpp	2022-04-04 08:34:15.807520060 +0200
+@@ -99,8 +99,6 @@
+     m_timer.start(500, this);
+ 
+     QWidget::show();
+-    raise();
+-    activateWindow();
+ }
+ 
+ void DownloadManager::resizeEvent(QResizeEvent* e)
+@@ -444,10 +442,6 @@
+     if (downloadingAllFilesFinished) {
+         if (success && qApp->activeWindow() != this) {
+             mApp->desktopNotifications()->showNotification(QIcon::fromTheme(QSL("download"), QIcon(QSL(":icons/other/download.svg"))).pixmap(48), tr("Falkon: Download Finished"), tr("All files have been successfully downloaded."));
+-            if (!m_closeOnFinish) {
+-                raise();
+-                activateWindow();
+-            }
+         }
+         ui->speedLabel->clear();
+         setWindowTitle(tr("Download Manager"));
+diff -ur falkon-3.2.0.org/src/lib/navigation/completer/locationcompleter.cpp falkon-3.2.0/src/lib/navigation/completer/locationcompleter.cpp
+--- falkon-3.2.0.org/src/lib/navigation/completer/locationcompleter.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/completer/locationcompleter.cpp	2022-04-04 08:35:53.007918813 +0200
+@@ -354,8 +354,6 @@
+     if (window->isActiveWindow() || tabWidget->currentIndex() != tab) {
+         tabWidget->setCurrentIndex(tab);
+         window->show();
+-        window->activateWindow();
+-        window->raise();
+     }
+     else {
+         tabWidget->webTab()->setFocus();
+diff -ur falkon-3.2.0.org/src/lib/navigation/completer/locationcompleterview.cpp falkon-3.2.0/src/lib/navigation/completer/locationcompleterview.cpp
+--- falkon-3.2.0.org/src/lib/navigation/completer/locationcompleterview.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/completer/locationcompleterview.cpp	2022-04-04 08:38:26.321863128 +0200
+@@ -64,14 +64,14 @@
+     m_view->setItemDelegate(m_delegate);
+ 
+     QFrame *searchFrame = new QFrame(this);
+-    searchFrame->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
++    searchFrame->setFrameStyle(QFrame::StyledPanel);
+     QHBoxLayout *searchLayout = new QHBoxLayout(searchFrame);
+     searchLayout->setContentsMargins(10, 4, 4, 4);
+ 
+     ToolButton *searchSettingsButton = new ToolButton(this);
+     searchSettingsButton->setIcon(IconProvider::settingsIcon());
+     searchSettingsButton->setToolTip(tr("Manage Search Engines"));
+-    searchSettingsButton->setAutoRaise(true);
++    searchSettingsButton->setAutoRaise(false);
+     searchSettingsButton->setIconSize(QSize(16, 16));
+     connect(searchSettingsButton, &ToolButton::clicked, this, &LocationCompleterView::searchEnginesDialogRequested);
+ 
+@@ -386,7 +386,7 @@
+         ToolButton *button = new ToolButton(this);
+         button->setIcon(engine.icon);
+         button->setToolTip(engine.name);
+-        button->setAutoRaise(true);
++        button->setAutoRaise(false);
+         button->setIconSize(QSize(16, 16));
+         connect(button, &ToolButton::clicked, this, [=]() {
+             const QString text = model()->index(0, 0).data(LocationCompleterModel::SearchStringRole).toString();
+diff -ur falkon-3.2.0.org/src/lib/navigation/locationbarpopup.cpp falkon-3.2.0/src/lib/navigation/locationbarpopup.cpp
+--- falkon-3.2.0.org/src/lib/navigation/locationbarpopup.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/locationbarpopup.cpp	2022-04-04 08:38:35.345232423 +0200
+@@ -25,7 +25,7 @@
+     , m_alignment(Qt::AlignRight)
+ {
+     setAttribute(Qt::WA_DeleteOnClose);
+-    setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
++    setFrameStyle(QFrame::StyledPanel);
+     setLineWidth(1);
+     setMidLineWidth(2);
+ }
+diff -ur falkon-3.2.0.org/src/lib/navigation/navigationbar.cpp falkon-3.2.0/src/lib/navigation/navigationbar.cpp
+--- falkon-3.2.0.org/src/lib/navigation/navigationbar.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/navigationbar.cpp	2022-04-04 08:38:54.271974518 +0200
+@@ -77,7 +77,7 @@
+     m_buttonBack->setToolButtonStyle(Qt::ToolButtonIconOnly);
+     m_buttonBack->setToolbarButtonLook(true);
+     m_buttonBack->setShowMenuOnRightClick(true);
+-    m_buttonBack->setAutoRaise(true);
++    m_buttonBack->setAutoRaise(false);
+     m_buttonBack->setEnabled(false);
+     m_buttonBack->setFocusPolicy(Qt::NoFocus);
+ 
+@@ -87,7 +87,7 @@
+     m_buttonForward->setToolButtonStyle(Qt::ToolButtonIconOnly);
+     m_buttonForward->setToolbarButtonLook(true);
+     m_buttonForward->setShowMenuOnRightClick(true);
+-    m_buttonForward->setAutoRaise(true);
++    m_buttonForward->setAutoRaise(false);
+     m_buttonForward->setEnabled(false);
+     m_buttonForward->setFocusPolicy(Qt::NoFocus);
+ 
+@@ -106,7 +106,7 @@
+     buttonHome->setToolTip(tr("Home"));
+     buttonHome->setToolButtonStyle(Qt::ToolButtonIconOnly);
+     buttonHome->setToolbarButtonLook(true);
+-    buttonHome->setAutoRaise(true);
++    buttonHome->setAutoRaise(false);
+     buttonHome->setFocusPolicy(Qt::NoFocus);
+ 
+     ToolButton *buttonAddTab = new ToolButton(this);
+@@ -114,7 +114,7 @@
+     buttonAddTab->setToolTip(tr("New Tab"));
+     buttonAddTab->setToolButtonStyle(Qt::ToolButtonIconOnly);
+     buttonAddTab->setToolbarButtonLook(true);
+-    buttonAddTab->setAutoRaise(true);
++    buttonAddTab->setAutoRaise(false);
+     buttonAddTab->setFocusPolicy(Qt::NoFocus);
+ 
+     m_menuBack = new Menu(this);
+@@ -132,7 +132,7 @@
+     buttonTools->setPopupMode(QToolButton::InstantPopup);
+     buttonTools->setToolbarButtonLook(true);
+     buttonTools->setToolTip(tr("Tools"));
+-    buttonTools->setAutoRaise(true);
++    buttonTools->setAutoRaise(false);
+     buttonTools->setFocusPolicy(Qt::NoFocus);
+     buttonTools->setShowMenuInside(true);
+ 
+@@ -145,7 +145,7 @@
+     m_supMenu->setPopupMode(QToolButton::InstantPopup);
+     m_supMenu->setToolbarButtonLook(true);
+     m_supMenu->setToolTip(tr("Main Menu"));
+-    m_supMenu->setAutoRaise(true);
++    m_supMenu->setAutoRaise(false);
+     m_supMenu->setFocusPolicy(Qt::NoFocus);
+     m_supMenu->setMenu(m_window->superMenu());
+     m_supMenu->setShowMenuInside(true);
+@@ -165,7 +165,7 @@
+     m_exitFullscreen->setToolButtonStyle(Qt::ToolButtonIconOnly);
+     m_exitFullscreen->setToolbarButtonLook(true);
+     m_exitFullscreen->setFocusPolicy(Qt::NoFocus);
+-    m_exitFullscreen->setAutoRaise(true);
++    m_exitFullscreen->setAutoRaise(false);
+     m_exitFullscreen->setVisible(false);
+ 
+     setContextMenuPolicy(Qt::CustomContextMenu);
+diff -ur falkon-3.2.0.org/src/lib/navigation/navigationbartoolbutton.cpp falkon-3.2.0/src/lib/navigation/navigationbartoolbutton.cpp
+--- falkon-3.2.0.org/src/lib/navigation/navigationbartoolbutton.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/navigationbartoolbutton.cpp	2022-04-04 08:39:00.128664522 +0200
+@@ -26,7 +26,7 @@
+     : ToolButton(parent)
+     , m_button(button)
+ {
+-    setAutoRaise(true);
++    setAutoRaise(false);
+     setToolbarButtonLook(true);
+     setFocusPolicy(Qt::NoFocus);
+ 
+diff -ur falkon-3.2.0.org/src/lib/navigation/reloadstopbutton.cpp falkon-3.2.0/src/lib/navigation/reloadstopbutton.cpp
+--- falkon-3.2.0.org/src/lib/navigation/reloadstopbutton.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/reloadstopbutton.cpp	2022-04-04 08:39:03.762012336 +0200
+@@ -26,7 +26,7 @@
+ {
+     setToolButtonStyle(Qt::ToolButtonIconOnly);
+     setToolbarButtonLook(true);
+-    setAutoRaise(true);
++    setAutoRaise(false);
+     setFocusPolicy(Qt::NoFocus);
+ 
+     m_updateTimer = new QTimer(this);
+diff -ur falkon-3.2.0.org/src/lib/navigation/websearchbar.cpp falkon-3.2.0/src/lib/navigation/websearchbar.cpp
+--- falkon-3.2.0.org/src/lib/navigation/websearchbar.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/navigation/websearchbar.cpp	2022-04-04 08:35:56.304598616 +0200
+@@ -146,8 +146,6 @@
+         m_searchDialog = new SearchEnginesDialog(this);
+ 
+     m_searchDialog->open();
+-    m_searchDialog->raise();
+-    m_searchDialog->activateWindow();
+ }
+ 
+ void WebSearchBar::enableSearchSuggestions(bool enable)
+diff -ur falkon-3.2.0.org/src/lib/other/browsinglibrary.cpp falkon-3.2.0/src/lib/other/browsinglibrary.cpp
+--- falkon-3.2.0.org/src/lib/other/browsinglibrary.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/other/browsinglibrary.cpp	2022-04-04 08:36:03.897962211 +0200
+@@ -95,9 +95,6 @@
+     ui->tabs->SetCurrentIndex(0);
+     show();
+     m_historyManager->setMainWindow(window);
+-
+-    raise();
+-    activateWindow();
+ }
+ 
+ void BrowsingLibrary::showBookmarks(BrowserWindow* window)
+@@ -105,9 +102,6 @@
+     ui->tabs->SetCurrentIndex(1);
+     show();
+     m_bookmarksManager->setMainWindow(window);
+-
+-    raise();
+-    activateWindow();
+ }
+ 
+ void BrowsingLibrary::closeEvent(QCloseEvent* e)
+diff -ur falkon-3.2.0.org/src/lib/popupwindow/popupwebview.cpp falkon-3.2.0/src/lib/popupwindow/popupwebview.cpp
+--- falkon-3.2.0.org/src/lib/popupwindow/popupwebview.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/popupwindow/popupwebview.cpp	2022-04-04 08:39:18.328737055 +0200
+@@ -50,7 +50,6 @@
+     if (window) {
+         int index = window->tabWidget()->addView(QUrl(), Qz::NT_SelectedTab);
+         window->weView(index)->load(req);
+-        window->raise();
+     }
+ }
+ 
+diff -ur falkon-3.2.0.org/src/lib/tabwidget/combotabbar.cpp falkon-3.2.0/src/lib/tabwidget/combotabbar.cpp
+--- falkon-3.2.0.org/src/lib/tabwidget/combotabbar.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/tabwidget/combotabbar.cpp	2022-04-04 08:39:41.155494684 +0200
+@@ -1558,7 +1558,7 @@
+ 
+     m_leftScrollButton = new ToolButton(this);
+     m_leftScrollButton->setFocusPolicy(Qt::NoFocus);
+-    m_leftScrollButton->setAutoRaise(true);
++    m_leftScrollButton->setAutoRaise(false);
+     m_leftScrollButton->setObjectName("tabbar-button-left");
+     m_leftScrollButton->setAutoRepeat(true);
+     m_leftScrollButton->setAutoRepeatDelay(200);
+@@ -1569,7 +1569,7 @@
+ 
+     m_rightScrollButton = new ToolButton(this);
+     m_rightScrollButton->setFocusPolicy(Qt::NoFocus);
+-    m_rightScrollButton->setAutoRaise(true);
++    m_rightScrollButton->setAutoRaise(false);
+     m_rightScrollButton->setObjectName("tabbar-button-right");
+     m_rightScrollButton->setAutoRepeat(true);
+     m_rightScrollButton->setAutoRepeatDelay(200);
+@@ -1844,7 +1844,7 @@
+     bool isUnderMouse = rect().contains(mapFromGlobal(QCursor::pos()));
+ 
+     if (isEnabled() && isUnderMouse && !isChecked() && !isDown()) {
+-        opt.state |= QStyle::State_Raised;
++        //opt.state |= QStyle::State_Raised;
+     }
+     if (isChecked()) {
+         opt.state |= QStyle::State_On;
+diff -ur falkon-3.2.0.org/src/lib/tabwidget/tabwidget.cpp falkon-3.2.0/src/lib/tabwidget/tabwidget.cpp
+--- falkon-3.2.0.org/src/lib/tabwidget/tabwidget.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/tabwidget/tabwidget.cpp	2022-04-04 08:39:53.298876420 +0200
+@@ -46,7 +46,7 @@
+     , m_tabWidget(tabWidget)
+ {
+     setObjectName("tabwidget-button-addtab");
+-    setAutoRaise(true);
++    setAutoRaise(false);
+     setFocusPolicy(Qt::NoFocus);
+     setAcceptDrops(true);
+     setToolTip(TabWidget::tr("New Tab"));
+@@ -125,7 +125,7 @@
+     m_buttonClosedTabs->setMenu(m_menuClosedTabs);
+     m_buttonClosedTabs->setPopupMode(QToolButton::InstantPopup);
+     m_buttonClosedTabs->setToolTip(tr("Closed tabs"));
+-    m_buttonClosedTabs->setAutoRaise(true);
++    m_buttonClosedTabs->setAutoRaise(false);
+     m_buttonClosedTabs->setFocusPolicy(Qt::NoFocus);
+     m_buttonClosedTabs->setShowMenuInside(true);
+     connect(m_buttonClosedTabs, &ToolButton::aboutToShowMenu, this, &TabWidget::aboutToShowClosedTabsMenu);
+@@ -136,7 +136,7 @@
+     m_buttonListTabs->setMenu(m_menuTabs);
+     m_buttonListTabs->setPopupMode(QToolButton::InstantPopup);
+     m_buttonListTabs->setToolTip(tr("List of tabs"));
+-    m_buttonListTabs->setAutoRaise(true);
++    m_buttonListTabs->setAutoRaise(false);
+     m_buttonListTabs->setFocusPolicy(Qt::NoFocus);
+     m_buttonListTabs->setShowMenuInside(true);
+     m_buttonListTabs->hide();
+diff -ur falkon-3.2.0.org/src/lib/tools/docktitlebarwidget.ui falkon-3.2.0/src/lib/tools/docktitlebarwidget.ui
+--- falkon-3.2.0.org/src/lib/tools/docktitlebarwidget.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/tools/docktitlebarwidget.ui	2022-04-04 08:40:00.432238341 +0200
+@@ -44,7 +44,7 @@
+       </size>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/lib/tools/html5permissions/html5permissionsnotification.ui falkon-3.2.0/src/lib/tools/html5permissions/html5permissionsnotification.ui
+--- falkon-3.2.0.org/src/lib/tools/html5permissions/html5permissionsnotification.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/tools/html5permissions/html5permissionsnotification.ui	2022-04-04 08:40:07.625600499 +0200
+@@ -64,7 +64,7 @@
+       <string/>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/lib/webtab/searchtoolbar.ui falkon-3.2.0/src/lib/webtab/searchtoolbar.ui
+--- falkon-3.2.0.org/src/lib/webtab/searchtoolbar.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/webtab/searchtoolbar.ui	2022-04-04 08:41:04.499161753 +0200
+@@ -26,7 +26,7 @@
+       </sizepolicy>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/lib/webtab/webtab.cpp falkon-3.2.0/src/lib/webtab/webtab.cpp
+--- falkon-3.2.0.org/src/lib/webtab/webtab.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/lib/webtab/webtab.cpp	2022-04-04 08:41:14.339201185 +0200
+@@ -602,7 +602,6 @@
+ void WebTab::showNotification(QWidget* notif)
+ {
+     m_notificationWidget->setParent(this);
+-    m_notificationWidget->raise();
+     m_notificationWidget->setFixedWidth(width());
+     m_notificationWidget->layout()->addWidget(notif);
+     m_notificationWidget->show();
+diff -ur falkon-3.2.0.org/src/plugins/AutoScroll/autoscrollplugin.cpp falkon-3.2.0/src/plugins/AutoScroll/autoscrollplugin.cpp
+--- falkon-3.2.0.org/src/plugins/AutoScroll/autoscrollplugin.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/AutoScroll/autoscrollplugin.cpp	2022-04-04 08:41:19.322554490 +0200
+@@ -59,7 +59,6 @@
+     }
+ 
+     m_settings.data()->show();
+-    m_settings.data()->raise();
+ }
+ 
+ bool AutoScrollPlugin::mouseMove(Qz::ObjectName type, QObject* obj, QMouseEvent* event)
+diff -ur falkon-3.2.0.org/src/plugins/FlashCookieManager/fcm_notification.ui falkon-3.2.0/src/plugins/FlashCookieManager/fcm_notification.ui
+--- falkon-3.2.0.org/src/plugins/FlashCookieManager/fcm_notification.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/FlashCookieManager/fcm_notification.ui	2022-04-04 08:41:26.442583024 +0200
+@@ -72,7 +72,7 @@
+       <string/>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/plugins/FlashCookieManager/fcm_plugin.cpp falkon-3.2.0/src/plugins/FlashCookieManager/fcm_plugin.cpp
+--- falkon-3.2.0.org/src/plugins/FlashCookieManager/fcm_plugin.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/FlashCookieManager/fcm_plugin.cpp	2022-04-04 08:41:29.769263019 +0200
+@@ -306,7 +306,6 @@
+     m_fcmDialog->refreshView();
+     m_fcmDialog->showPage(0);
+     m_fcmDialog->show();
+-    m_fcmDialog->raise();
+ }
+ 
+ void FCM_Plugin::mainWindowCreated(BrowserWindow *window)
+diff -ur falkon-3.2.0.org/src/plugins/GreaseMonkey/gm_manager.cpp falkon-3.2.0/src/plugins/GreaseMonkey/gm_manager.cpp
+--- falkon-3.2.0.org/src/plugins/GreaseMonkey/gm_manager.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/GreaseMonkey/gm_manager.cpp	2022-04-04 08:41:32.912608951 +0200
+@@ -59,7 +59,6 @@
+     }
+ 
+     m_settings.data()->show();
+-    m_settings.data()->raise();
+ }
+ 
+ void GM_Manager::downloadScript(const QUrl &url)
+diff -ur falkon-3.2.0.org/src/plugins/GreaseMonkey/gm_notification.ui falkon-3.2.0/src/plugins/GreaseMonkey/gm_notification.ui
+--- falkon-3.2.0.org/src/plugins/GreaseMonkey/gm_notification.ui	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/GreaseMonkey/gm_notification.ui	2022-04-04 08:41:38.859299447 +0200
+@@ -66,7 +66,7 @@
+       <string/>
+      </property>
+      <property name="autoRaise">
+-      <bool>true</bool>
++      <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+diff -ur falkon-3.2.0.org/src/plugins/MouseGestures/mousegestures.cpp falkon-3.2.0/src/plugins/MouseGestures/mousegestures.cpp
+--- falkon-3.2.0.org/src/plugins/MouseGestures/mousegestures.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/MouseGestures/mousegestures.cpp	2022-04-04 08:41:41.955978523 +0200
+@@ -156,7 +156,6 @@
+     }
+ 
+     m_settings.data()->show();
+-    m_settings.data()->raise();
+ }
+ 
+ void MouseGestures::unloadPlugin()
+diff -ur falkon-3.2.0.org/src/plugins/PIM/PIM_handler.cpp falkon-3.2.0/src/plugins/PIM/PIM_handler.cpp
+--- falkon-3.2.0.org/src/plugins/PIM/PIM_handler.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/PIM/PIM_handler.cpp	2022-04-04 08:41:44.555988942 +0200
+@@ -95,7 +95,6 @@
+     }
+ 
+     m_settings.data()->show();
+-    m_settings.data()->raise();
+ }
+ 
+ void PIM_Handler::populateWebViewMenu(QMenu* menu, WebView* view, const WebHitTestResult &hitTest)
+diff -ur falkon-3.2.0.org/src/plugins/TabManager/tabmanagerwidget.cpp falkon-3.2.0/src/plugins/TabManager/tabmanagerwidget.cpp
+--- falkon-3.2.0.org/src/plugins/TabManager/tabmanagerwidget.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/TabManager/tabmanagerwidget.cpp	2022-04-04 08:36:12.984665090 +0200
+@@ -249,8 +249,6 @@
+     else {
+         mainWindow->show();
+     }
+-    mainWindow->activateWindow();
+-    mainWindow->raise();
+     mainWindow->weView()->setFocus();
+ 
+     if (tabWidget && tabWidget != mainWindow->tabWidget()->currentWidget()) {
+diff -ur falkon-3.2.0.org/src/plugins/TabManager/tabmanagerwidgetcontroller.cpp falkon-3.2.0/src/plugins/TabManager/tabmanagerwidgetcontroller.cpp
+--- falkon-3.2.0.org/src/plugins/TabManager/tabmanagerwidgetcontroller.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/TabManager/tabmanagerwidgetcontroller.cpp	2022-04-04 08:42:11.259429285 +0200
+@@ -204,9 +204,7 @@
+         return;
+     }
+ 
+-    defaultTabManager()->activateWindow();
+     defaultTabManager()->showNormal();
+-    defaultTabManager()->raise();
+ }
+ 
+ void TabManagerWidgetController::showSideBySide()
+@@ -226,11 +224,8 @@
+     defaultTabManager()->setGeometry(managerRect);
+     mApp->getWindow()->setGeometry(windowRect);
+     mApp->getWindow()->showNormal();
+-    mApp->getWindow()->raise();
+ 
+     defaultTabManager()->show();
+-    defaultTabManager()->activateWindow();
+-    defaultTabManager()->raise();
+ }
+ 
+ void TabManagerWidgetController::emitRefreshTree()
+diff -ur falkon-3.2.0.org/src/plugins/TestPlugin/testplugin.cpp falkon-3.2.0/src/plugins/TestPlugin/testplugin.cpp
+--- falkon-3.2.0.org/src/plugins/TestPlugin/testplugin.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/TestPlugin/testplugin.cpp	2022-04-04 08:42:17.786122108 +0200
+@@ -112,7 +112,6 @@
+     }
+ 
+     m_settings.data()->show();
+-    m_settings.data()->raise();
+ }
+ 
+ void TestPlugin::populateWebViewMenu(QMenu* menu, WebView* view, const WebHitTestResult &r)
+diff -ur falkon-3.2.0.org/src/plugins/VerticalTabs/tabtreedelegate.cpp falkon-3.2.0/src/plugins/VerticalTabs/tabtreedelegate.cpp
+--- falkon-3.2.0.org/src/plugins/VerticalTabs/tabtreedelegate.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/VerticalTabs/tabtreedelegate.cpp	2022-04-04 08:42:41.042881972 +0200
+@@ -221,8 +221,8 @@
+         QSize closeSize = QSize(o.rect.size().width(), qMin(height - m_padding, o.rect.size().height()));
+         QPoint pos(opt.rect.right() - m_padding - closeSize.width(), center - closeSize.height() / 2);
+         o.rect = QRect(pos, closeSize);
+-        o.state |= QStyle::State_AutoRaise | QStyle::State_Enabled | QStyle::State_Selected;
+-        o.state.setFlag(QStyle::State_Raised, hovered && !pressed);
++        o.state |= QStyle::State_Enabled | QStyle::State_Selected;
++        //o.state.setFlag(QStyle::State_Raised, hovered && !pressed);
+         o.state.setFlag(QStyle::State_Sunken, pressed);
+         o.state.setFlag(QStyle::State_MouseOver, hovered);
+         style->drawPrimitive(QStyle::PE_IndicatorTabClose, &o, painter, m_closeButton);
+diff -ur falkon-3.2.0.org/src/plugins/VerticalTabs/verticaltabswidget.cpp falkon-3.2.0/src/plugins/VerticalTabs/verticaltabswidget.cpp
+--- falkon-3.2.0.org/src/plugins/VerticalTabs/verticaltabswidget.cpp	2022-01-31 13:17:43.000000000 +0100
++++ falkon-3.2.0/src/plugins/VerticalTabs/verticaltabswidget.cpp	2022-04-04 08:42:44.602896237 +0200
+@@ -53,7 +53,6 @@
+ 
+     ToolButton *buttonAddTab = new ToolButton(this);
+     buttonAddTab->setObjectName(QSL("verticaltabs-button-addtab"));
+-    buttonAddTab->setAutoRaise(true);
+     buttonAddTab->setFocusPolicy(Qt::NoFocus);
+     buttonAddTab->setToolTip(tr("New Tab"));
+     buttonAddTab->setIcon(QIcon::fromTheme(QSL("list-add")));
