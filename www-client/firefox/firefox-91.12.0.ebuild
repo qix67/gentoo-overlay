@@ -51,6 +51,11 @@ PATCH_URIS=(
 	https://dev.gentoo.org/~{juippis,whissi}/mozilla/patchsets/${FIREFOX_PATCHSET}
 )
 
+PATCHES=(
+	"${FILESDIR}"/nomore_clickSelectsAll.patch
+	"${FILESDIR}"/session_restore_on_current_workspace.patch
+)
+
 SRC_URI="${MOZ_SRC_BASE_URI}/source/${MOZ_P}.source.tar.xz -> ${MOZ_P_DISTFILES}.source.tar.xz
 	${PATCH_URIS[@]}"
 
@@ -574,6 +579,8 @@ src_prepare() {
 	fi
 
 	eapply "${WORKDIR}/firefox-patches"
+
+	eapply -- "${PATCHES[@]}"
 
 	# Allow user to apply any additional patches without modifing ebuild
 	eapply_user
