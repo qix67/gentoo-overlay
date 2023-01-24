@@ -1,8 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6,7,8} )
+
+PYTHON_COMPAT=( python3_{9..10} )
+
 inherit python-any-r1 toolchain-funcs
 
 DESCRIPTION="light-weight X11 desktop panel"
@@ -37,6 +39,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-7.0-images.patch
 	"${FILESDIR}"/${PN}-7.0-python3-shebangs.patch
 	"${FILESDIR}"/${PN}-7.0-remove-gdk-pixbuf-xlib.h.patch
+	"${FILESDIR}"/${PN}-7.0-python3.10.patch
 	"${FILESDIR}"/${PN}-7.0-invert_up_down_wheel_desktop_change.patch
 )
 
