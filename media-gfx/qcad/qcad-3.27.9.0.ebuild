@@ -38,7 +38,6 @@ DEPEND="
 	media-libs/mesa
 	media-libs/fontconfig
 	media-libs/freetype
-	dev-util/kdevelop[qmake]
 "
 RDEPEND="${DEPEND}"
 
@@ -47,7 +46,7 @@ RESTRICT="strip mirror"
 src_prepare() {
 	#eapply -p2 "${FILESDIR}/fix_plugin_path.patch"
 	eapply_user
-	QTV=$(qmake -query | fgrep QT_VERSION | cut -d : -f 2)
+	QTV=$(/usr/lib64/qt5/bin/qmake -query | fgrep QT_VERSION | cut -d : -f 2)
 
 	if [ ! -e src/3rdparty/qt-labs-qtscriptgenerator-$QTV ]
 	then
@@ -60,7 +59,7 @@ TEMPLATE = subdirs
 EOF
 	fi
 
-	qmake -r
+	/usr/lib64/qt5/bin/qmake -r
 }
 
 src_install() {
