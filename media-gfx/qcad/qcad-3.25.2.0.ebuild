@@ -38,6 +38,7 @@ DEPEND="
 	media-libs/mesa
 	media-libs/fontconfig
 	media-libs/freetype
+	dev-util/kdevelop[qmake]
 "
 RDEPEND="${DEPEND}"
 
