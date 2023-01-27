@@ -3,7 +3,7 @@
 
 EAPI="7"
 
-WX_GTK_VER="3.0"
+WX_GTK_VER="3.0-gtk3"
 
 inherit autotools eutils multilib wxwidgets git-r3 desktop
 
@@ -27,7 +27,8 @@ DEPEND="
 	x11-libs/wxGTK:${WX_GTK_VER}[X]
 	>=dev-db/postgresql-12:=
 	>=dev-libs/libxml2-2.9
-	>=dev-libs/libxslt-1.1"
+	>=dev-libs/libxslt-1.1
+	virtual/pkgconfig"
 RDEPEND="${DEPEND}
 	zlib? ( >=sys-libs/zlib-1.1.4 )
 	openssl? ( >=dev-libs/openssl-1.1 )
@@ -37,6 +38,13 @@ RDEPEND="${DEPEND}
 PATCHES=( "${FILESDIR}"/pgadmin3-{desktop-r1,gcc6-null-pointer}.patch )
 
 src_prepare() {
+	PGSQL_VER=$(pkgconf --modversion libpq | sed 's/\..*//')
+	
+	if [ "$PGSQL_VER" > 12 ]
+	then
+		eapply "${FILESDIR}/pg13.patch"
+	fi
+
 	./bootstrap || die
 	default
 	eautoreconf
