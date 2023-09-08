@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit rpm eutils udev
+inherit rpm udev
 
 MY_PV="${PV/_p/-}"
 
