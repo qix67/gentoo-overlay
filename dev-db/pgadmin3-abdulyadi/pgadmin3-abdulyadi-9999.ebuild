@@ -5,7 +5,7 @@ EAPI="7"
 
 WX_GTK_VER="3.0-gtk3"
 
-inherit autotools eutils multilib wxwidgets git-r3 desktop
+inherit autotools multilib wxwidgets git-r3 desktop
 
 DESCRIPTION="wxWidgets GUI for PostgreSQL"
 HOMEPAGE="https://www.pgadmin.org/"
@@ -39,7 +39,7 @@ PATCHES=( "${FILESDIR}"/pgadmin3-{desktop-r1,gcc6-null-pointer}.patch )
 
 src_prepare() {
 	PGSQL_VER=$(pkgconf --modversion libpq | sed 's/\..*//')
-	
+
 	if [ "$PGSQL_VER" > 12 ]
 	then
 		eapply "${FILESDIR}/pg13.patch"
