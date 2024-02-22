@@ -6,6 +6,11 @@ How to install this overlay
 layman -o 'https://github.com/qix67/gentoo-overlay/raw/master/repositories.xml' -f -a qix67
 ```
 
+### eselect repository
+```sh
+eselect repository add qix67 git 'https://github.com/qix67/gentoo-overlay.git'
+```
+
 Use a package from this overlay instead of gentoo official package
 ------------------------------------------------------------------
 
