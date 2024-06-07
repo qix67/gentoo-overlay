@@ -1,6 +1,6 @@
-diff -u -r sasutils.org/sysfs.py sasutils/sysfs.py
---- sasutils.org/sysfs.py	2019-12-09 06:32:17.000000000 +0100
-+++ sasutils/sysfs.py	2024-06-07 09:32:26.422801442 +0200
+diff -u -r a/sasutils/sysfs.py b/sasutils/sysfs.py
+--- a/src/sasutils/sysfs.py	2019-12-09 06:32:17.000000000 +0100
++++ b/src/sasutils/sysfs.py	2024-06-07 09:32:26.422801442 +0200
 @@ -16,7 +16,7 @@
  # limitations under the License.
  
