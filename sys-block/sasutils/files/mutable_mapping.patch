@@ -1,0 +1,21 @@
+diff -u -r sasutils-0.3.10.org/sasutils/sysfs.py sasutils-0.3.10/sasutils/sysfs.py
+--- sasutils-0.3.10.org/sasutils/sysfs.py	2019-12-09 06:32:17.000000000 +0100
++++ sasutils-0.3.10/sasutils/sysfs.py	2024-06-07 09:32:26.422801442 +0200
+@@ -16,7 +16,7 @@
+ # limitations under the License.
+ 
+ 
+-import collections
++import collections.abc
+ import json
+ import glob
+ from os import access, listdir, readlink, R_OK
+@@ -141,7 +141,7 @@
+ sysfs = SYSFSNODE_CLASS()
+ 
+ 
+-class SysfsAttributes(collections.MutableMapping):
++class SysfsAttributes(collections.abc.MutableMapping):
+     """SysfsObject attributes with dot.notation access"""
+ 
+     def __init__(self):
