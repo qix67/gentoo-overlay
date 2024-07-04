@@ -3,9 +3,10 @@
 
 EAPI=8
 
-DESCRIPTION="Support for MS Sidewinder X4, X6 and Logitech G105, G710, G710+"
-HOMEPAGE="https://github.com/tolga9009/sidewinderd"
-SRC_URI="https://github.com/tolga9009/sidewinderd/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+DESCRIPTION="Support for MS Sidewinder X4, X6 and Logitech G105, G710, G710+, G815"
+HOMEPAGE="https://github.com/cornernote/sidewinderd"
+#SRC_URI="https://github.com/cornernote/sidewinderd/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/cornernote/sidewinderd/archive/refs/heads/g815-support.zip -> ${P}.zip"
 
 LICENSE="MIT"
 SLOT="0"
@@ -25,7 +26,7 @@ RESTRICT="mirror"
 
 function src_unpack {
     unpack ${A}
-    mv `dirname ${S}`/${PN}-${COMMIT} ${S}
+    mv `dirname ${S}`/${PN}-g815-support ${S}
 }
 
 function src_compile {
