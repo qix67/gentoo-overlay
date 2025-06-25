@@ -96,6 +96,25 @@ MULTILIB_CHOST_TOOLS=(
 PATCHES=(
 	# gtk-update-icon-cache is installed by dev-util/gtk-update-icon-cache
 	"${FILESDIR}"/${PN}-3.24.36-update-icon-cache.patch
+	"${FILESDIR}"/appearance__buttons-menus-icons.patch
+	"${FILESDIR}"/appearance__disable-backdrop.patch
+	"${FILESDIR}"/appearance__file-chooser.patch
+	"${FILESDIR}"/appearance__message-dialogs_3.27.49.patch
+	"${FILESDIR}"/appearance__print-dialog.patch
+	"${FILESDIR}"/appearance__smaller-statusbar.patch
+	"${FILESDIR}"/csd__clean-headerbar.patch
+	"${FILESDIR}"/csd__disabled-by-default.patch
+	"${FILESDIR}"/csd__server-side-shadow.patch
+	"${FILESDIR}"/file-chooser__places-sidebar-v35plus.patch
+	"${FILESDIR}"/file-chooser__typeahead.patch
+	"${FILESDIR}"/fixes__labels-wrapping.patch
+	"${FILESDIR}"/other__default-settings.patch
+	"${FILESDIR}"/other__hide-insert-emoji.patch
+	"${FILESDIR}"/other__mnemonics-delay.patch
+	"${FILESDIR}"/popovers__color-chooser.patch
+	"${FILESDIR}"/popovers__file-chooser-list.patch
+	"${FILESDIR}"/popovers__places-sidebar.patch
+	"${FILESDIR}"/0001-Add-even-odd-row-css-nodes-for-tree-view.patch
 	# Gentoo-specific patch to add a "poison" macro support, allowing other ebuilds
 	# with USE="-wayland -X" to trick gtk into claiming that it wasn't built with
 	# such support.
