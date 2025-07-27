@@ -1,0 +1,64 @@
+diff -ur cantata-3.3.1.org/gui/mainwindow.cpp cantata-3.3.1/gui/mainwindow.cpp
+--- cantata-3.3.1.org/gui/mainwindow.cpp	2025-04-25 08:56:55.000000000 +0200
++++ cantata-3.3.1/gui/mainwindow.cpp	2025-07-27 04:23:38.986732201 +0200
+@@ -839,10 +839,16 @@
+ 	connect(MPDConnection::self(), SIGNAL(connectionNotChanged(QString)), SLOT(mpdConnectionName(QString)));
+ 	connect(MpdLibraryModel::self(), SIGNAL(error(QString)), SLOT(showError(QString)));
+ 	connect(ApiKeys::self(), SIGNAL(error(const QString&)), SLOT(showError(const QString&)));
++
++	// disable refreshDB confirmation
++	connect(refreshDbAction, SIGNAL(triggered()), MpdLibraryModel::self(), SLOT(clearDb()));
++	connect(refreshDbAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(update()));
++#if 0
+ 	connect(refreshDbAction, SIGNAL(triggered()), this, SLOT(refreshDbPromp()));
+ 	connect(doDbRefreshAction, SIGNAL(triggered()), MpdLibraryModel::self(), SLOT(clearDb()));
+ 	connect(doDbRefreshAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(update()));
+ 	connect(doDbRefreshAction, SIGNAL(triggered()), messageWidget, SLOT(animatedHide()));
++#endif
+ 	connect(connectAction, SIGNAL(triggered()), this, SLOT(connectToMpd()));
+ 	connect(StdActions::self()->prevTrackAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(goToPrevious()));
+ 	connect(StdActions::self()->nextTrackAction, SIGNAL(triggered()), MPDConnection::self(), SLOT(goToNext()));
+@@ -1246,6 +1252,7 @@
+ #endif
+ }
+ 
++#if 0
+ void MainWindow::refreshDbPromp()
+ {
+ 	int btnLayout = style()->styleHint(QStyle::SH_DialogButtonLayout);
+@@ -1258,6 +1265,7 @@
+ 	messageWidget->setWarning(tr("Refresh MPD Database?"), false);
+ 	expand();
+ }
++#endif
+ 
+ void MainWindow::showAboutDialog()
+ {
+diff -ur cantata-3.3.1.org/gui/mainwindow.h cantata-3.3.1/gui/mainwindow.h
+--- cantata-3.3.1.org/gui/mainwindow.h	2025-04-25 08:56:55.000000000 +0200
++++ cantata-3.3.1/gui/mainwindow.h	2025-07-27 04:24:05.562146071 +0200
+@@ -174,7 +174,9 @@
+ 	void connectToMpd();
+ 	void connectToMpd(const MPDConnectionDetails& details);
+ 	void streamUrl(const QString& u);
++#if 0
+ 	void refreshDbPromp();
++#endif
+ 	void showServerInfo();
+ 	void stopPlayback();
+ 	void stopAfterCurrentTrack();
+diff -ur cantata-3.3.1.org/support/kmessagewidget.cpp cantata-3.3.1/support/kmessagewidget.cpp
+--- cantata-3.3.1.org/support/kmessagewidget.cpp	2025-04-25 08:56:55.000000000 +0200
++++ cantata-3.3.1/support/kmessagewidget.cpp	2025-07-27 04:25:15.976593051 +0200
+@@ -39,7 +39,10 @@
+ 
+ 	q->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+ 
+-	timeLine = new QTimeLine(500, q);
++	//timeLine = new QTimeLine(500, q);
++	// disable animation
++	timeLine = new QTimeLine(1, q);
++
+ 	QObject::connect(timeLine, SIGNAL(valueChanged(qreal)), q, SLOT(slotTimeLineChanged(qreal)));
+ 	QObject::connect(timeLine, SIGNAL(finished()), q, SLOT(slotTimeLineFinished()));
+ 

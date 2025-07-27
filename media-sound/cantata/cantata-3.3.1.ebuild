@@ -58,9 +58,9 @@ DEPEND="${COMMON_DEPEND}
 BDEPEND="dev-qt/linguist-tools:5"
 
 PATCHES=(
+	"${FILESDIR}/cantata-3.3.1-disable_animation_and_refresh_confirmation.patch"
 	"${FILESDIR}/cantata-3.3.1-enable_alternating_row_colors.patch"
 )
-#   "${FILESDIR}/cantata-2.3.1-disable_animation_and_refresh_confirmation.patch"
 
 src_prepare() {
 	remove_locale() {
